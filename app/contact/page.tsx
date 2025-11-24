@@ -104,7 +104,7 @@ export default function ContactPage() {
           <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr]">
             <aside className="space-y-4">
               {contactChannels.map(({ label, value, href, description, icon }) => {
-                const Icon = icon ? iconMap[icon] : null;
+                const Icon = icon ? iconMap[icon as IconKey] : null;
                 const isExternal = href?.startsWith("http");
                 return (
                   <div key={label} className="surface-card p-6">
