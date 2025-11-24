@@ -1,17 +1,17 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import SiteFooter from '../components/site-footer';
-import SiteHeader from '../components/site-header';
-import content from '../data/content';
+import Image from "next/image";
+import Link from "next/link";
+import SiteFooter from "../components/site-footer";
+import SiteHeader from "../components/site-header";
+import content from "../data/content";
 
-const profileImagePath = '/images/my.jpg';
+const profileImagePath = "/images/my.jpg";
 
-const focusAreas = ['UX Strategy', 'Design Systems', 'Product Thinking', 'IoT Interfaces'];
+const focusAreas = ["UX Strategy", "Design Systems", "Product Thinking", "IoT Interfaces"];
 
 const quickStats = [
-  { label: 'Base', value: content.location },
-  { label: 'Disciplines', value: 'Product design · Full-stack · IoT' },
-  { label: 'Availability', value: 'Open to collaborations in 2025' },
+  { label: "Base", value: content.location },
+  { label: "Disciplines", value: "Product design · Full-stack · IoT" },
+  { label: "Availability", value: "Open to collaborations in 2025" },
 ];
 
 export default function Home() {
@@ -113,8 +113,8 @@ export default function Home() {
                       style={{
                         background:
                           index % 2 === 0
-                            ? 'linear-gradient(135deg, rgba(99,102,241,0.14), rgba(14,165,233,0.08))'
-                            : 'linear-gradient(135deg, rgba(8,145,178,0.12), rgba(139,92,246,0.08))',
+                            ? "linear-gradient(135deg, rgba(99,102,241,0.14), rgba(14,165,233,0.08))"
+                            : "linear-gradient(135deg, rgba(8,145,178,0.12), rgba(139,92,246,0.08))",
                       }}
                     >
                       <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/10 text-sm font-semibold text-zinc-200">
@@ -122,7 +122,7 @@ export default function Home() {
                       </div>
                       <div className="space-y-1 text-xs">
                         <p className="text-sm font-medium text-white">{project.title}</p>
-                        <p className="text-zinc-500">{project.tech.slice(0, 3).join(' · ')}</p>
+                        <p className="text-zinc-500">{project.tech.slice(0, 3).join(" · ")}</p>
                       </div>
                     </div>
                   ))}
