@@ -14,8 +14,7 @@ export default {
     {
       title: "IoT Water Monitoring System",
       description: "ESP32-powered smart tank monitor with Firebase analytics and a React dashboard for households in Sri Lanka.",
-      tech: ["ESP32", "Firebase", "React"],
-      progress: 85,
+      tech: ["Arduino Mega", "Arduino", "IOT"],
       special: true,
       gallery: [
         { src: "/images/projects/iot1.jpg", alt: "IoT water monitoring dashboard" },

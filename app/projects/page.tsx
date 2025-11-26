@@ -45,7 +45,7 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
                   }`}
                 >
                   <div className="space-y-4">
-                    {!isBattleBot && (
+                    {!isBattleBot && typeof project.progress === 'number' && (
                       <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-zinc-400">
                         <span>{project.progress}% complete</span>
                         <span className="h-1 w-1 rounded-full bg-white/20" />
@@ -99,14 +99,15 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
                             {gallery.map((image, index) => (
                               <div
                                 key={image.src}
-                                className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-white/10 bg-white/5"
+                                className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5"
                               >
                                 <Image
                                   src={image.src}
                                   alt={image.alt}
-                                  fill
-                                  sizes="(max-width: 768px) 100vw, 50vw"
-                                  className="object-cover"
+                                  width={1280}
+                                  height={720}
+                                  sizes="100vw"
+                                  className="h-auto w-full object-contain"
                                   priority={isHighlighted && index === 0}
                                 />
                               </div>
@@ -161,7 +162,7 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
                       </div>
                     )}
                   </div>
-                  {!isBattleBot && (
+                  {!isBattleBot && typeof project.progress === 'number' && (
                     <div className="mt-6">
                       <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
                         <div className="h-full rounded-full bg-gradient-to-r from-[#6366f1] via-[#8b5cf6] to-[#22d3ee]" style={{ width: `${project.progress}%` }} />
