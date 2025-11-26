@@ -10,50 +10,101 @@ type ProjectsPageProps = {
 };
 
 export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
+  const projects = Array.isArray(content.projects) ? content.projects : [];
   const highlight = searchParams?.highlight;
 
+  const uniqueTech = new Set<string>();
+  const signatureCount = projects.filter((project) => project.special).length;
+
+  projects.forEach((project) => {
+    if (Array.isArray(project.tech)) {
+      project.tech.forEach((tech) => uniqueTech.add(tech));
+    }
+  });
+
+  const heroStats = [
+    { label: 'Projects Shipped', value: projects.length.toString() },
+    { label: 'Core Technologies', value: uniqueTech.size.toString() },
+    { label: 'Signature Builds', value: signatureCount.toString() }
+  ];
+
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[#050510]">
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-cyan-400/25 blur-[160px]" />
+        <div className="absolute bottom-0 right-0 h-[28rem] w-[28rem] translate-x-1/3 rounded-full bg-indigo-500/25 blur-[200px]" />
+        <div className="absolute inset-x-0 top-24 mx-auto h-px w-[92%] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      </div>
       <SiteHeader />
       <main className="flex-1 pt-32">
-        <section className="mx-auto max-w-6xl px-6 pb-24">
-          <header className="mb-12 space-y-4">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-400">Project Archive</p>
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div>
-                <h1 className="text-3xl font-semibold text-white sm:text-4xl">Digital products with polish</h1>
-                <p className="muted mt-3 max-w-2xl text-base">
-                  A curated view of experiments, production launches, and R&D explorations across web, mobile, and
-                  embedded interfaces.
-                </p>
-              </div>
+        <section className="relative mx-auto max-w-6xl px-6 pb-24">
+          <header className="relative mb-12 space-y-6">
+            <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-xs uppercase tracking-[0.28em] text-cyan-100">
+              Project Archive
+            </span>
+            <div className="space-y-4">
+              <h1 className="text-3xl font-semibold text-white sm:text-4xl">
+                Crafted products with a studio-grade finish
+              </h1>
+              <p className="muted max-w-3xl text-base">
+                From IoT telemetry to commerce platforms, each build blends design, hardware awareness, and reliable deployment workflows. Explore the work and the stacks that power it.
+              </p>
+            </div>
+            <div className="grid gap-3 pt-2 sm:grid-cols-3">
+              {heroStats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-3xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-zinc-300 shadow-[0_30px_60px_-45px_rgba(15,23,42,0.9)] backdrop-blur-md"
+                >
+                  <p className="text-xs uppercase tracking-[0.25em] text-zinc-400">{stat.label}</p>
+                  <p className="mt-2 text-2xl font-semibold text-white">
+                    <span className="bg-gradient-to-r from-cyan-300 via-sky-400 to-indigo-400 bg-clip-text text-transparent">
+                      {stat.value}
+                    </span>
+                  </p>
+                </div>
+              ))}
             </div>
           </header>
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {content.projects.map((project) => {
+            {projects.map((project) => {
               const isHighlighted = highlight === project.title;
               const gallery = Array.isArray(project.gallery) ? project.gallery : [];
               const hashtags = Array.isArray(project.hashtags) ? project.hashtags : [];
+              const techStack = Array.isArray(project.tech) ? project.tech : [];
               const isBattleBot = project.title === 'BattleBot Control Stack';
+              const isSignature = Boolean(project.special);
+
+              const cardAccent = isSignature
+                ? 'border-cyan-400/60 bg-cyan-500/10 shadow-[0_30px_60px_-40px_rgba(45,212,191,0.65)]'
+                : 'border-white/10 bg-white/[0.04] shadow-[0_30px_60px_-45px_rgba(15,23,42,0.9)]';
 
               return (
                 <article
                   key={project.title}
-                  className={`flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.04] p-6 transition-transform duration-300 hover:-translate-y-2 hover:border-cyan-400/40 hover:bg-white/[0.07] ${
+                  className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl p-6 backdrop-blur-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-[0_40px_80px_-50px_rgba(34,211,238,0.75)] ${cardAccent} ${
                     isHighlighted ? 'ring-2 ring-cyan-400/70' : ''
                   }`}
                 >
-                  <div className="space-y-4">
+                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/15 via-transparent to-indigo-500/15" />
+                  </div>
+                  {isSignature && (
+                    <span className="absolute right-6 top-6 inline-flex items-center gap-1 rounded-full border border-cyan-200/40 bg-cyan-300/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] text-cyan-100">
+                      Signature
+                    </span>
+                  )}
+                  <div className="relative z-10 space-y-4">
                     {!isBattleBot && typeof project.progress === 'number' && (
-                      <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-zinc-400">
+                      <div className="flex items-center gap-3 text-[0.65rem] uppercase tracking-[0.28em] text-zinc-300/90">
                         <span>{project.progress}% complete</span>
                         <span className="h-1 w-1 rounded-full bg-white/20" />
                         <span>Project</span>
                       </div>
                     )}
                     {!isBattleBot && project.highlight && (
-                      <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] text-cyan-200">
+                      <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-400/15 px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] text-cyan-100">
                         <span>{project.highlight}</span>
                       </div>
                     )}
@@ -68,14 +119,12 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
                       </div>
                     )}
                     {isBattleBot && project.story && (
-                      <p className="text-sm leading-relaxed text-amber-100/90">
-                        {project.story}
-                      </p>
+                      <p className="text-sm leading-relaxed text-amber-100/90">{project.story}</p>
                     )}
                     {!isBattleBot && (
                       <div className="flex flex-wrap gap-2">
-                        {project.tech.map((tag) => (
-                          <span key={tag} className="tag-pill bg-white/8 text-cyan-200">
+                        {techStack.map((tag) => (
+                          <span key={tag} className="tag-pill bg-white/8 text-cyan-200/90">
                             {tag}
                           </span>
                         ))}
@@ -125,10 +174,10 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
                                 priority={isHighlighted}
                               />
                             </div>
-                            {gallery.slice(1).map((image, index) => (
+                            {gallery.slice(1).map((image) => (
                               <div
                                 key={image.src}
-                                className={`relative col-span-2 aspect-square overflow-hidden rounded-2xl ${index === 0 ? 'row-span-1' : 'row-span-1'}`}
+                                className="relative col-span-2 aspect-square overflow-hidden rounded-2xl"
                               >
                                 <Image src={image.src} alt={image.alt} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
                               </div>
@@ -163,9 +212,12 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
                     )}
                   </div>
                   {!isBattleBot && typeof project.progress === 'number' && (
-                    <div className="mt-6">
+                    <div className="relative z-10 mt-6">
                       <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
-                        <div className="h-full rounded-full bg-gradient-to-r from-[#6366f1] via-[#8b5cf6] to-[#22d3ee]" style={{ width: `${project.progress}%` }} />
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-[#6366f1] via-[#8b5cf6] to-[#22d3ee]"
+                          style={{ width: `${project.progress}%` }}
+                        />
                       </div>
                     </div>
                   )}
