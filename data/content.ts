@@ -58,24 +58,6 @@ export default {
       story:
         "Built to demonstrate end-to-end web application architecture, MelodyMart strengthened my backend development, structured MVC design, and responsive UI skills. Feedback and suggestions are always welcome!",
       gallery: [{ src: "/images/projects/melodymart.jpeg", alt: "MelodyMart e-commerce landing page" }]
-    },
-    {
-      title: "Smart Campus Companion",
-      description: "Cross-platform mobile app for campus event discovery, transport schedules, and community updates.",
-      tech: ["Flutter", "Node", "MongoDB"],
-      progress: 80
-    },
-    {
-      title: "Assistive Voice Agent",
-      description: "Conversational assistant prototyped with Python NLP pipelines for Sinhala and English workflows.",
-      tech: ["Python", "NLP", "FastAPI"],
-      progress: 75
-    },
-    {
-      title: "Robotics Workshop Toolkit",
-      description: "Hands-on labs, firmware templates, and documentation used in SLIIT robotics and IoT workshops.",
-      tech: ["Arduino", "ESP32", "Docs"],
-      progress: 65
     }
   ]
 }
