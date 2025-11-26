@@ -10,6 +10,92 @@ export default {
   facebook: "https://www.facebook.com/share/19UvN1ravP/",
   instagram: "https://www.instagram.com/chamika_2k04?utm_source=qr&igsh=MTNwcHh3dDdzOWE0ag==",
   whatsapp: "https://wa.me/94741906332",
+  aboutPage: {
+    hero: {
+      headline: "Grounded in community, driven by curiosity",
+      subheading: "Life in code, circuits, and coastal sunsets.",
+      description:
+        "Born and raised in Weligama, I split my days between university labs, maker meetups, and the ocean breeze. I document everything—from robotics victories to the quiet early-morning study sessions that push my craft forward.",
+      quote:
+        "Building is how I understand the world. Every project starts as a story worth sharing.",
+      image: "/images/my.jpg",
+      stats: [
+        { label: "Years tinkering", value: "6+" },
+        { label: "Projects shipped", value: "12" },
+        { label: "Workshops mentored", value: "8" }
+      ],
+      quickFacts: [
+        { label: "Currently", value: "BSc (Hons) in Information Technology at SLIIT" },
+        { label: "Home Base", value: "Weligama, Sri Lanka" },
+        { label: "Favourite Time", value: "4:30 AM sunrise planning" }
+      ]
+    },
+    lifestyle: [
+      {
+        title: "Morning Ritual",
+        description:
+          "Coffee, journal, and a 30-minute review of GitHub issues before classes. Quiet focus sets the tone for the day.",
+        details: ["Daily gratitude notes", "Circuit ideas sketched in a dotted notebook", "Lo-fi playlists on repeat"]
+      },
+      {
+        title: "Campus Life",
+        description:
+          "SLIIT keeps me in motion—from labs and meetups to mentoring juniors on their first embedded builds.",
+        details: ["Co-leading robotics study groups", "Testing ESP32 firmware in the hardware lab", "Planning hackathon concepts with friends"]
+      },
+      {
+        title: "Weekend Reset",
+        description:
+          "Weekends are reserved for family, beach walks in Weligama, and editing footage from recent projects.",
+        details: ["Photography drives along the southern coast", "Experimenting with synthwave mixes", "Family dinners and cricket recaps"]
+      }
+    ],
+    timeline: [
+      {
+        year: "2018",
+        title: "First line of code",
+        description: "Built my first basic Arduino project to automate bedroom lights and was instantly hooked."
+      },
+      {
+        year: "2021",
+        title: "Freelance beginnings",
+        description: "Started delivering small web apps for local businesses while balancing school exams."
+      },
+      {
+        year: "2023",
+        title: "Joined SLIIT",
+        description: "Began my undergraduate journey, diving deeper into software engineering and embedded systems."
+      },
+      {
+        year: "2025",
+        title: "EMBED X Champion",
+        description: "Won 1st place at EMBED X Robotics Workshop with a custom BattleBot control stack."
+      }
+    ],
+    highlights: [
+      {
+        title: "BattleBot Finals",
+        description: "Final-round adrenaline with my team moments after clinching the trophy.",
+        image: "/images/projects/robot2.jpg"
+      },
+      {
+        title: "IoT Demo Day",
+        description: "Presenting the smart water monitoring dashboard to visiting lecturers at SLIIT.",
+        image: "/images/projects/iot1.jpg"
+      },
+      {
+        title: "MelodyMart Launch",
+        description: "Celebrating the first production deploy with live orders coming in.",
+        image: "/images/projects/melodymart.jpeg"
+      }
+    ],
+    favorites: [
+      "Synthwave playlists while coding",
+      "Sunset photography along the southern coast",
+      "Collecting vintage robot figurines",
+      "Teaching juniors the basics of firmware debugging"
+    ]
+  },
   projects: [
     {
       title: "IoT Water Monitoring System",

@@ -29,14 +29,11 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
   ];
 
   return (
-    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[#050510]">
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-cyan-400/25 blur-[160px]" />
-        <div className="absolute bottom-0 right-0 h-[28rem] w-[28rem] translate-x-1/3 rounded-full bg-indigo-500/25 blur-[200px]" />
-        <div className="absolute inset-x-0 top-24 mx-auto h-px w-[92%] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-      </div>
+    <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="flex-1 pt-32">
+      <main className="relative flex-1 pt-32">
+        <div className="pointer-events-none absolute -left-48 top-16 hidden h-72 w-72 rounded-[24rem] glow-ring opacity-60 md:block" />
+        <div className="pointer-events-none absolute -right-40 bottom-20 hidden h-64 w-64 rounded-[24rem] glow-ring opacity-50 md:block" />
         <section className="relative mx-auto max-w-6xl px-6 pb-24">
           <header className="relative mb-12 space-y-6">
             <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-xs uppercase tracking-[0.28em] text-cyan-100">

@@ -58,13 +58,11 @@ const experiences: Experience[] = [
 
 export default function ExperiencePage() {
   return (
-    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[#050510]">
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -left-40 top-32 h-96 w-96 rounded-full bg-cyan-500/15 blur-[160px]" />
-        <div className="absolute right-0 top-1/3 h-[28rem] w-[28rem] translate-x-1/4 rounded-full bg-indigo-500/20 blur-[200px]" />
-      </div>
+    <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="flex-1 pt-32">
+      <main className="relative flex-1 pt-32">
+        <div className="pointer-events-none absolute -left-48 top-20 hidden h-72 w-72 rounded-[24rem] glow-ring opacity-60 md:block" />
+        <div className="pointer-events-none absolute -right-48 bottom-24 hidden h-72 w-72 rounded-[24rem] glow-ring opacity-50 md:block" />
         <section className="relative mx-auto max-w-6xl px-6 pb-24">
           <header className="mb-12 space-y-6">
             <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-xs uppercase tracking-[0.28em] text-cyan-100">
@@ -88,7 +86,7 @@ export default function ExperiencePage() {
                   key={`${experience.title}-${experience.company}`}
                   className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_30px_60px_-45px_rgba(15,23,42,0.8)] backdrop-blur-lg transition-transform duration-300 hover:-translate-y-2 hover:border-cyan-400/50 hover:shadow-[0_40px_80px_-50px_rgba(34,211,238,0.75)]"
                 >
-                  <div className="pointer-events-none absolute -left-[19px] top-8 hidden h-4 w-4 rounded-full border-2 border-cyan-300/70 bg-[#050510] md:block" />
+                  <div className="pointer-events-none absolute -left-[19px] top-8 hidden h-4 w-4 rounded-full border-2 border-cyan-300/70 bg-[#030712] md:block" />
                   <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-transparent to-indigo-500/15" />
                   </div>
