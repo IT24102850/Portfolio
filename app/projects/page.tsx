@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import SiteFooter from '../../components/site-footer';
 import SiteHeader from '../../components/site-header';
 import content from '../../data/content';
@@ -32,6 +33,9 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {content.projects.map((project) => {
               const isHighlighted = highlight === project.title;
+              const gallery = Array.isArray(project.gallery) ? project.gallery : [];
+              const hashtags = Array.isArray(project.hashtags) ? project.hashtags : [];
+              const isBattleBot = project.title === 'BattleBot Control Stack';
 
               return (
                 <article
@@ -41,26 +45,129 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
                   }`}
                 >
                   <div className="space-y-4">
-                    <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-zinc-400">
-                      <span>{project.progress}% complete</span>
-                      <span className="h-1 w-1 rounded-full bg-white/20" />
-                      <span>Project</span>
-                    </div>
+                    {!isBattleBot && (
+                      <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-zinc-400">
+                        <span>{project.progress}% complete</span>
+                        <span className="h-1 w-1 rounded-full bg-white/20" />
+                        <span>Project</span>
+                      </div>
+                    )}
+                    {!isBattleBot && project.highlight && (
+                      <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] text-cyan-200">
+                        <span>{project.highlight}</span>
+                      </div>
+                    )}
                     <h2 className="text-xl font-semibold text-white">{project.title}</h2>
                     <p className="muted text-sm leading-relaxed">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tag) => (
-                        <span key={tag} className="tag-pill bg-white/8 text-cyan-200">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                    {!isBattleBot && project.story && (
+                      <p className="text-xs leading-relaxed text-cyan-100/90">{project.story}</p>
+                    )}
+                    {isBattleBot && project.highlight && (
+                      <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-400/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] text-amber-200">
+                        <span>{project.highlight}</span>
+                      </div>
+                    )}
+                    {isBattleBot && project.story && (
+                      <p className="text-sm leading-relaxed text-amber-100/90">
+                        {project.story}
+                      </p>
+                    )}
+                    {!isBattleBot && (
+                      <div className="flex flex-wrap gap-2">
+                        {project.tech.map((tag) => (
+                          <span key={tag} className="tag-pill bg-white/8 text-cyan-200">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {gallery.length > 0 && !isBattleBot && (
+                      <div className="mt-4">
+                        {gallery.length === 1 ? (
+                          <div className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+                            <Image
+                              src={gallery[0].src}
+                              alt={gallery[0].alt}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                              className="object-cover"
+                              priority={isHighlighted}
+                            />
+                          </div>
+                        ) : gallery.length === 2 ? (
+                          <div className="space-y-3">
+                            {gallery.map((image, index) => (
+                              <div
+                                key={image.src}
+                                className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-white/10 bg-white/5"
+                              >
+                                <Image
+                                  src={image.src}
+                                  alt={image.alt}
+                                  fill
+                                  sizes="(max-width: 768px) 100vw, 50vw"
+                                  className="object-cover"
+                                  priority={isHighlighted && index === 0}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="grid grid-cols-5 grid-rows-2 gap-2">
+                            <div className="relative col-span-3 row-span-2 aspect-[4/3] overflow-hidden rounded-2xl">
+                              <Image
+                                src={gallery[0].src}
+                                alt={gallery[0].alt}
+                                fill
+                                sizes="(max-width: 768px) 100vw, 33vw"
+                                className="object-cover"
+                                priority={isHighlighted}
+                              />
+                            </div>
+                            {gallery.slice(1).map((image, index) => (
+                              <div
+                                key={image.src}
+                                className={`relative col-span-2 aspect-square overflow-hidden rounded-2xl ${index === 0 ? 'row-span-1' : 'row-span-1'}`}
+                              >
+                                <Image src={image.src} alt={image.alt} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    {gallery.length > 0 && isBattleBot && (
+                      <div className="mt-4 space-y-3">
+                        <div className="overflow-hidden rounded-3xl border border-amber-400/20 bg-black/40" style={{ aspectRatio: '5 / 4' }}>
+                          <Image
+                            src={gallery[0].src}
+                            alt={gallery[0].alt}
+                            width={1280}
+                            height={1024}
+                            className="h-full w-full object-cover object-center"
+                            priority={isHighlighted}
+                          />
+                        </div>
+                        <p className="text-xs text-amber-200/80">Captured moments from the winning BattleBot build.</p>
+                      </div>
+                    )}
+                    {hashtags.length > 0 && !isBattleBot && (
+                      <div className="flex flex-wrap gap-2 pt-2">
+                        {hashtags.map((tag) => (
+                          <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-zinc-300">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  <div className="mt-6">
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
-                      <div className="h-full rounded-full bg-gradient-to-r from-[#6366f1] via-[#8b5cf6] to-[#22d3ee]" style={{ width: `${project.progress}%` }} />
+                  {!isBattleBot && (
+                    <div className="mt-6">
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
+                        <div className="h-full rounded-full bg-gradient-to-r from-[#6366f1] via-[#8b5cf6] to-[#22d3ee]" style={{ width: `${project.progress}%` }} />
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </article>
               );
             })}
