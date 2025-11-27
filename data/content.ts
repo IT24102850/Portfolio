@@ -98,10 +98,24 @@ export default {
   },
   projects: [
     {
+      title: "UML Studio Telegram Bot",
+      description:
+        "Telegram bot that transforms PlantUML snippets or .uml files into polished PNG diagrams in seconds — all powered from a Google Colab backend.",
+      tech: ["Python", "Telegram Bot API", "PlantUML", "Graphviz", "Async Programming", "Cloud Automation", "Google Colab"],
+      special: false,
+     
+      story:
+        "Built UML Studio to help developers preview PlantUML diagrams without desktop tools. Drop text or upload a .uml file and the bot renders the graphic, streams status updates, and returns a shareable PNG — all running serverlessly via Google Colab.",
+      hashtags: ["#Python", "#TelegramBot", "#PlantUML", "#Graphviz", "#Automation"],
+      link: "https://t.me/umlstudiobot",
+      linkLabel: "Try UML Studio",
+      gallery: [{ src: "/images/projects/uml.png", alt: "UML Studio brand preview" }]
+    },
+    {
       title: "IoT Water Monitoring System",
       description: "ESP32-powered smart tank monitor with Firebase analytics and a React dashboard for households in Sri Lanka.",
       tech: ["Arduino Mega", "Arduino", "IOT"],
-      special: true,
+      special: false,
       gallery: [
         { src: "/images/projects/iot1.jpg", alt: "IoT water monitoring dashboard" },
         { src: "/images/projects/iot2.jpg", alt: "IoT water monitoring system hardware" }

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import SiteFooter from '../../components/site-footer';
 import SiteHeader from '../../components/site-header';
 import content from '../../data/content';
@@ -14,7 +15,6 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
   const highlight = searchParams?.highlight;
 
   const uniqueTech = new Set<string>();
-  const signatureCount = projects.filter((project) => project.special).length;
 
   projects.forEach((project) => {
     if (Array.isArray(project.tech)) {
@@ -24,8 +24,7 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
 
   const heroStats = [
     { label: 'Projects Shipped', value: projects.length.toString() },
-    { label: 'Core Technologies', value: uniqueTech.size.toString() },
-    { label: 'Signature Builds', value: signatureCount.toString() }
+    { label: 'Core Technologies', value: uniqueTech.size.toString() }
   ];
 
   return (
@@ -68,14 +67,10 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
             {projects.map((project) => {
               const isHighlighted = highlight === project.title;
               const gallery = Array.isArray(project.gallery) ? project.gallery : [];
-              const hashtags = Array.isArray(project.hashtags) ? project.hashtags : [];
               const techStack = Array.isArray(project.tech) ? project.tech : [];
               const isBattleBot = project.title === 'BattleBot Control Stack';
-              const isSignature = Boolean(project.special);
 
-              const cardAccent = isSignature
-                ? 'border-cyan-400/60 bg-cyan-500/10 shadow-[0_30px_60px_-40px_rgba(45,212,191,0.65)]'
-                : 'border-white/10 bg-white/[0.04] shadow-[0_30px_60px_-45px_rgba(15,23,42,0.9)]';
+              const cardAccent = 'border-white/10 bg-white/[0.04] shadow-[0_30px_60px_-45px_rgba(15,23,42,0.9)]';
 
               return (
                 <article
@@ -87,11 +82,6 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
                   <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/15 via-transparent to-indigo-500/15" />
                   </div>
-                  {isSignature && (
-                    <span className="absolute right-6 top-6 inline-flex items-center gap-1 rounded-full border border-cyan-200/40 bg-cyan-300/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] text-cyan-100">
-                      Signature
-                    </span>
-                  )}
                   <div className="relative z-10 space-y-4">
                     {!isBattleBot && typeof project.progress === 'number' && (
                       <div className="flex items-center gap-3 text-[0.65rem] uppercase tracking-[0.28em] text-zinc-300/90">
@@ -198,13 +188,17 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
                         <p className="text-xs text-amber-200/80">Captured moments from the winning BattleBot build.</p>
                       </div>
                     )}
-                    {hashtags.length > 0 && !isBattleBot && (
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {hashtags.map((tag) => (
-                          <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-zinc-300">
-                            {tag}
-                          </span>
-                        ))}
+                    {!isBattleBot && project.link && (
+                      <div className="pt-4">
+                        <Link
+                          href={project.link}
+                          className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-400/15 px-5 py-2 text-sm font-semibold text-cyan-100 transition-colors duration-200 hover:border-cyan-300/60 hover:text-white"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {project.linkLabel ?? 'Visit Project'}
+                          <span aria-hidden className="text-base">→</span>
+                        </Link>
                       </div>
                     )}
                   </div>
