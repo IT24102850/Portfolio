@@ -15,34 +15,20 @@ const BoardingBookProject = () => (
       />
     </div>
     <div className="boardingbook-description">
-      <h2>Streamlining Student Living: Introducing BordingBook 🏠</h2>
+      <h2>BoardingBook – Student Roommate Matcher</h2>
       <p>
-        Finding a compatible roommate is often the most stressful part of university life. I built BordingBook to solve this—a digital solution specifically designed for student group formation and roommate matching.
-      </p>
-      <h3>The Feature Set:</h3>
-      <ul>
-        <li><b>Custom Profiles:</b> Detailed preferences for budget, habits, and study focus.</li>
-        <li><b>Swipe-to-Match:</b> A dynamic, "Tinder-style" interface for seamless connections.</li>
-        <li><b>Group Workflows:</b> Handles joining existing rooms OR forming new groups from scratch.</li>
-      </ul>
-      <h3>Technical Deep Dive:</h3>
-      <p>
-        Built with React, TypeScript, Node.js, MongoDB, and Redis, I prioritized production-ready engineering:
-      </p>
-      <ul>
-        <li><b>Resilient Backend:</b> Strict validation for complex group states.</li>
-        <li><b>Reliable Logic:</b> Sophisticated error handling for real-time notifications.</li>
-        <li><b>High Performance:</b> Optimized data persistence for a seamless UX.</li>
-      </ul>
-      <p>
-        I’m proud to balance technical rigor with a real-world solution for the Sri Lankan student community.
-      </p>
-      <p>
-        🔗 <a href="https://github.com/IT24102850/BordingBook" target="_blank" rel="noopener noreferrer">Explore the Code</a>
+        A digital platform to streamline student group formation and roommate matching. Features custom profiles, swipe-to-match, and group workflows. Built for real-time notifications and a seamless user experience.
       </p>
       <div className="boardingbook-tags">
-        #SoftwareEngineering #FullStack #BordingBook #ReactJS #NodeJS #TypeScript #SLIIT #ProjectLaunch
+        <span className="tag-pill">React</span>
+        <span className="tag-pill">TypeScript</span>
+        <span className="tag-pill">Node.js</span>
+        <span className="tag-pill">MongoDB</span>
+        <span className="tag-pill">Redis</span>
       </div>
+      <p style={{marginTop: '1rem'}}>
+        🔗 <a href="https://github.com/IT24102850/BordingBook" target="_blank" rel="noopener noreferrer">Explore the Code</a>
+      </p>
     </div>
     <style jsx>{`
       .boardingbook-project-container {
