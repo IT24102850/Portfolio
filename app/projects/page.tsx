@@ -3,6 +3,8 @@ import Link from 'next/link';
 import SiteFooter from '../../components/site-footer';
 import SiteHeader from '../../components/site-header';
 import content from '../../data/content';
+import BoardingBookProject from '../../components/BoardingBookProject';
+import SLIITGroupProject from '../../components/SLIITGroupProject';
 
 type ProjectsPageProps = {
   searchParams?: {
@@ -215,6 +217,8 @@ export default function ProjectsPage({ searchParams }: ProjectsPageProps) {
                 </article>
               );
             })}
+            <BoardingBookProject />
+            <SLIITGroupProject />
           </div>
         </section>
       </main>
