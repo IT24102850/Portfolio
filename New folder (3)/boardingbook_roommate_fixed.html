@@ -1,0 +1,364 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.app{background:#0a1124;min-height:700px;width:100%;border-radius:12px;overflow:hidden;color:#fff;display:flex;flex-direction:column;font-family:system-ui,sans-serif}
+.topbar{background:#0f172a;border-bottom:1px solid rgba(255,255,255,0.08);padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,#06b6d4,#3b82f6);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.logo-text h1{font-size:13px;font-weight:600;background:linear-gradient(90deg,#67e8f9,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+.logo-text p{font-size:10px;color:rgba(103,232,249,0.5)}
+.topbar-nav{display:flex;gap:8px}
+.nav-btn{padding:6px 14px;border-radius:8px;font-size:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:#d1d5db;cursor:pointer;font-weight:500}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.icon-btn{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.1);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;position:relative;font-size:15px}
+.notif-badge{position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:#ef4444;border-radius:50%;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.user-pill{display:flex;align-items:center;gap:8px;padding:4px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05)}
+.avatar-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:1.5px solid rgba(103,232,249,0.4);flex-shrink:0}
+.tab-switcher{display:flex;background:#0f172a;padding:8px 16px;gap:4px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.tab-pill{flex:1;text-align:center;padding:7px 0;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;color:#a5f3fc}
+.tab-pill.active{background:linear-gradient(90deg,#06b6d4,#8b5cf6);color:#fff}
+.tip-bar{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px}
+.tip-pill{background:rgba(8,47,73,0.7);padding:4px 14px;border-radius:20px;font-size:11px;color:#a5f3fc}
+.main{flex:1;display:grid;grid-template-columns:210px 1fr 210px;overflow:hidden}
+.side-panel{background:rgba(255,255,255,0.03);padding:12px;border-right:1px solid rgba(255,255,255,0.06);overflow-y:auto}
+.side-panel.right{border-right:none;border-left:1px solid rgba(255,255,255,0.06)}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.panel-title{font-size:12px;font-weight:600;color:#fff}
+.p-count{font-size:11px;color:#f87171;background:rgba(239,68,68,0.15);padding:2px 7px;border-radius:10px}
+.p-count.g{color:#34d399;background:rgba(52,211,153,0.15)}
+.mini-card{background:linear-gradient(135deg,#181f36,#0f172a);border-radius:8px;border:1px solid rgba(255,255,255,0.08);margin-bottom:6px;display:flex;align-items:center;gap:8px;padding:8px}
+.mini-av{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:1.5px solid rgba(255,255,255,0.15)}
+.mini-info{flex:1;min-width:0}
+.mini-name{font-size:11px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-sub{font-size:10px;color:#9ca3af}
+.center-col{padding:14px;display:flex;flex-direction:column;align-items:center;overflow-y:auto;gap:12px}
+.hero-box{background:linear-gradient(135deg,#181f36,#0f172a);border-radius:12px;border:1px solid rgba(255,255,255,0.08);padding:14px;width:100%}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.hero-title{font-size:15px;font-weight:700;color:#fff}
+.hero-sub{font-size:11px;color:#6b7280;margin-top:2px}
+.match-badge{background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.3);padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;color:#67e8f9;white-space:nowrap}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat-card{background:rgba(255,255,255,0.04);border-radius:8px;padding:10px;text-align:center}
+.stat-label{font-size:10px;color:#6b7280;margin-bottom:2px}
+.stat-value{font-size:16px;font-weight:700;color:#fff}
+.tab-row{display:flex;flex-wrap:wrap;gap:6px;width:100%}
+.s-tab{padding:6px 14px;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#d1d5db}
+.s-tab.active{background:linear-gradient(90deg,#ec4899,#8b5cf6);color:#fff;border-color:transparent}
+.swipe-card{background:linear-gradient(135deg,#181f36,#0f172a);border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);width:100%;max-width:300px;box-shadow:0 8px 40px rgba(6,182,212,0.12)}
+.photo-area{width:100%;height:260px;position:relative;overflow:hidden}
+.photo-area canvas{width:100%;height:100%;display:block}
+.img-overlay{position:absolute;bottom:0;left:0;right:0;padding:14px;background:linear-gradient(to top,rgba(8,12,30,0.97) 0%,rgba(8,12,30,0.55) 65%,transparent 100%)}
+.p-name{font-size:19px;font-weight:700;color:#fff;line-height:1.2}
+.p-sub{font-size:11px;color:#a5f3fc;margin-top:3px}
+.p-bio{font-size:11px;color:#cbd5e1;margin-top:5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-body{padding:12px 14px 14px}
+.mutual-pill{display:inline-flex;background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.3);padding:3px 10px;border-radius:20px;font-size:10px;color:#a5f3fc;margin-bottom:8px}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px}
+.tag{background:rgba(6,182,212,0.12);color:#67e8f9;font-size:9px;padding:2px 8px;border-radius:20px;border:1px solid rgba(6,182,212,0.2)}
+.btn-row{display:flex;justify-content:center;gap:24px}
+.btn-action{width:52px;height:52px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;transition:transform .15s;color:#fff}
+.btn-action:hover{transform:scale(1.1)}
+.btn-pass{background:linear-gradient(135deg,#be185d,#9f1239)}
+.btn-like{background:linear-gradient(135deg,#059669,#047857)}
+.hint{font-size:11px;color:#374151;text-align:center;padding:12px 0}
+</style>
+
+<div class="app">
+  <h2 class="sr-only">BoardingBook roommate finder — desktop window view on the Matches tab</h2>
+
+  <div class="topbar">
+    <div class="logo">
+      <div class="logo-icon">BB</div>
+      <div class="logo-text">
+        <h1>BoardingBook</h1>
+        <p>Find your room</p>
+      </div>
+    </div>
+    <div class="topbar-nav">
+      <button class="nav-btn">My Dashboard</button>
+      <button class="nav-btn">Messages</button>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn" aria-label="Notifications">
+        <i class="ti ti-bell" aria-hidden="true"></i>
+        <span class="notif-badge">3</span>
+      </button>
+      <div class="user-pill">
+        <div class="avatar-circle" style="background:linear-gradient(135deg,#1d4ed8,#7c3aed);color:#fff">HC</div>
+        <span style="font-size:12px;color:#a5f3fc">Hasiru Chamika</span>
+      </div>
+      <button class="icon-btn" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#f87171" aria-label="Logout">
+        <i class="ti ti-logout" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="tab-switcher">
+    <div class="tab-pill">Rooms</div>
+    <div class="tab-pill active">Matches</div>
+  </div>
+
+  <div class="tip-bar">
+    <i class="ti ti-info-circle" style="font-size:14px;color:#67e8f9" aria-hidden="true"></i>
+    <span class="tip-pill">Find your ideal roommate!</span>
+  </div>
+
+  <div class="main">
+    <div class="side-panel">
+      <div class="panel-header">
+        <span class="panel-title">Passed</span>
+        <span class="p-count">2</span>
+      </div>
+      <div class="mini-card">
+        <div class="mini-av" style="background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#93c5fd" id="av-dilan"></div>
+        <div class="mini-info">
+          <div class="mini-name">Dilan Fernando</div>
+          <div class="mini-sub">UoM</div>
+        </div>
+        <span style="color:#f87171;font-size:13px;flex-shrink:0">✕</span>
+      </div>
+      <div class="mini-card">
+        <div class="mini-av" style="background:linear-gradient(135deg,#3b1f4f,#5b21b6);color:#c4b5fd" id="av-bob"></div>
+        <div class="mini-info">
+          <div class="mini-name">Bob Silva</div>
+          <div class="mini-sub">CINEC</div>
+        </div>
+        <span style="color:#f87171;font-size:13px;flex-shrink:0">✕</span>
+      </div>
+      <div class="hint">Swipe left to pass</div>
+    </div>
+
+    <div class="center-col">
+      <div class="hero-box">
+        <div class="hero-top">
+          <div>
+            <div class="hero-title">Find Your Perfect Roommate</div>
+            <div class="hero-sub">Connect with students near SLIIT</div>
+          </div>
+          <div class="match-badge">20 Matches</div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div style="font-size:18px;color:#22d3ee;margin-bottom:4px"><i class="ti ti-users" aria-hidden="true"></i></div>
+            <div class="stat-label">Active Students</div>
+            <div class="stat-value">20</div>
+          </div>
+          <div class="stat-card">
+            <div style="font-size:18px;color:#f472b6;margin-bottom:4px"><i class="ti ti-heart" aria-hidden="true"></i></div>
+            <div class="stat-label">Compatibility Rate</div>
+            <div class="stat-value">85%</div>
+          </div>
+          <div class="stat-card">
+            <div style="font-size:18px;color:#a78bfa;margin-bottom:4px"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
+            <div class="stat-label">Near Campus</div>
+            <div class="stat-value">2km</div>
+          </div>
+          <div class="stat-card">
+            <div style="font-size:18px;color:#fb923c;margin-bottom:4px"><i class="ti ti-calendar" aria-hidden="true"></i></div>
+            <div class="stat-label">Available Now</div>
+            <div class="stat-value">20</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-row">
+        <button class="s-tab active">Browse</button>
+        <button class="s-tab">Sent (13)</button>
+        <button class="s-tab">Inbox (0)</button>
+        <button class="s-tab">Groups (0)</button>
+      </div>
+
+      <div class="swipe-card">
+        <div class="photo-area">
+          <canvas id="swipe-canvas" width="300" height="260"></canvas>
+          <div class="img-overlay">
+            <div class="p-name">Hasiru Chamika, <span style="color:#f9a8d4">22</span></div>
+            <div class="p-sub">Male &nbsp;|&nbsp; SLIIT</div>
+            <div class="p-bio">Enthusiast. I enjoy gaming, music, and fitness. I keep a balanced lifestyle, stay organised, and respect others' space.</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div style="text-align:center"><span class="mutual-pill">1 mutual interest</span></div>
+          <div class="tags">
+            <span class="tag">Gaming</span>
+            <span class="tag">Music</span>
+            <span class="tag">Fitness</span>
+            <span class="tag">Travel</span>
+          </div>
+          <div class="btn-row">
+            <button class="btn-action btn-pass" aria-label="Pass">✕</button>
+            <button class="btn-action btn-like" aria-label="Like">♥</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-panel right">
+      <div class="panel-header">
+        <span class="panel-title">Favorites</span>
+        <span class="p-count g">3</span>
+      </div>
+      <div class="mini-card">
+        <div class="mini-av" style="background:linear-gradient(135deg,#065f46,#047857);color:#6ee7b7" id="av-alice"></div>
+        <div class="mini-info">
+          <div class="mini-name">Alice Perera</div>
+          <div class="mini-sub">SLIIT</div>
+        </div>
+        <span style="color:#34d399;font-size:13px;flex-shrink:0">♥</span>
+      </div>
+      <div class="mini-card">
+        <div class="mini-av" style="background:linear-gradient(135deg,#7c2d12,#9a3412);color:#fdba74" id="av-chat"></div>
+        <div class="mini-info">
+          <div class="mini-name">Chathuni J.</div>
+          <div class="mini-sub">NSBM</div>
+        </div>
+        <span style="color:#34d399;font-size:13px;flex-shrink:0">♥</span>
+      </div>
+      <div class="mini-card">
+        <div class="mini-av" style="background:linear-gradient(135deg,#1e1b4b,#312e81);color:#a5b4fc" id="av-sajini"></div>
+        <div class="mini-info">
+          <div class="mini-name">Sajini Peris</div>
+          <div class="mini-sub">NSBM</div>
+        </div>
+        <span style="color:#34d399;font-size:13px;flex-shrink:0">♥</span>
+      </div>
+      <div class="hint">Swipe right to save more</div>
+      <button style="width:100%;margin-top:6px;padding:8px;border-radius:8px;background:linear-gradient(90deg,#06b6d4,#8b5cf6);border:none;color:#fff;font-size:11px;font-weight:600;cursor:pointer">View All Favorites</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function drawAvatar(id, initials, bg1, bg2, textColor) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = initials;
+}
+
+function drawFace(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, '#1a2744');
+  grad.addColorStop(1, '#0d1b3e');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+
+  const cx = w / 2;
+
+  ctx.fillStyle = '#c8a98a';
+  ctx.beginPath();
+  ctx.ellipse(cx, h * 0.62, 55, 80, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#1a2744';
+  ctx.beginPath();
+  ctx.ellipse(cx, h * 0.25, 60, 60, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#2a1a0e';
+  ctx.beginPath();
+  ctx.ellipse(cx, h * 0.22, 52, 38, 0, Math.PI, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#c8a98a';
+  ctx.beginPath();
+  ctx.ellipse(cx, h * 0.3, 46, 52, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#b07850';
+  ctx.beginPath();
+  ctx.ellipse(cx - 16, h * 0.26, 8, 5, -0.2, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(cx + 16, h * 0.26, 8, 5, 0.2, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#1a0a00';
+  ctx.beginPath();
+  ctx.ellipse(cx - 16, h * 0.27, 5, 7, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(cx + 16, h * 0.27, 5, 7, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.ellipse(cx - 16, h * 0.265, 2, 3, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(cx + 16, h * 0.265, 2, 3, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.strokeStyle = '#a07050';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.arc(cx, h * 0.35, 6, 0, Math.PI);
+  ctx.stroke();
+
+  ctx.strokeStyle = '#b07030';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(cx - 24, h * 0.215);
+  ctx.quadraticCurveTo(cx - 16, h * 0.205, cx - 8, h * 0.215);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(cx + 8, h * 0.215);
+  ctx.quadraticCurveTo(cx + 16, h * 0.205, cx + 24, h * 0.215);
+  ctx.stroke();
+
+  ctx.fillStyle = '#2a1a0e';
+  ctx.beginPath();
+  ctx.ellipse(cx, h * 0.16, 52, 24, 0, 0, Math.PI, true);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(cx - 24, h * 0.22, 14, 10, -0.4, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(cx + 24, h * 0.22, 14, 10, 0.4, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#c8a98a';
+  ctx.beginPath();
+  ctx.ellipse(cx - 50, h * 0.34, 8, 18, 0.3, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(cx + 50, h * 0.34, 8, 18, -0.3, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#c8a98a';
+  ctx.beginPath();
+  ctx.moveTo(cx - 40, h * 0.5);
+  ctx.quadraticCurveTo(cx - 55, h * 0.58, cx - 45, h * 0.75);
+  ctx.quadraticCurveTo(cx - 38, h * 0.88, cx - 20, h * 0.92);
+  ctx.lineTo(cx + 20, h * 0.92);
+  ctx.quadraticCurveTo(cx + 38, h * 0.88, cx + 45, h * 0.75);
+  ctx.quadraticCurveTo(cx + 55, h * 0.58, cx + 40, h * 0.5);
+  ctx.quadraticCurveTo(cx, h * 0.56, cx - 40, h * 0.5);
+  ctx.fill();
+
+  ctx.fillStyle = '#1e3a5f';
+  ctx.fillRect(0, h * 0.78, w, h * 0.22);
+
+  ctx.fillStyle = '#2563eb';
+  ctx.beginPath();
+  ctx.moveTo(cx - 50, h * 0.82);
+  ctx.quadraticCurveTo(cx, h * 0.79, cx + 50, h * 0.82);
+  ctx.lineTo(cx + 60, h);
+  ctx.lineTo(cx - 60, h);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = 'rgba(255,255,255,0.06)';
+  for (let i = 0; i < 6; i++) {
+    ctx.beginPath();
+    ctx.arc(Math.random() * w, Math.random() * h * 0.5, Math.random() * 2 + 1, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+drawFace('swipe-canvas');
+</script>
