@@ -123,33 +123,33 @@ export default {
   },
   projects: [
     {
-      title: "UML Studio Telegram Bot",
+      title: "SLFWS: AI-Powered Geospatial Early Warning System",
       description:
-        "Telegram bot that transforms PlantUML snippets or .uml files into polished PNG diagrams in seconds — all powered from a Google Colab backend.",
+        "An end-to-end, AI-driven disaster risk reduction framework designed to provide actionable intelligence for emergency management by integrating satellite-based precipitation data with terrain analysis.",
       tech: [
         "Python",
-        "Telegram Bot API",
-        "PlantUML",
-        "Graphviz",
-        "Async Programming",
-        "Cloud Automation",
-        "Google Colab",
+        "XGBoost",
+        "Streamlit",
+        "CNN",
+        "Computer Vision",
+        "Geospatial Data Analysis",
+        "Machine Learning",
+        "Predictive Analytics",
       ],
-      special: false,
-
-      story:
-        "Built UML Studio to help developers preview PlantUML diagrams without desktop tools. Drop text or upload a .uml file and the bot renders the graphic, streams status updates, and returns a shareable PNG — all running serverlessly via Google Colab.",
+      progress: 100,
+      highlight: "Jun 2026 – Present",
       hashtags: [
+        "#AI",
+        "#MachineLearning",
+        "#ComputerVision",
+        "#Geospatial",
         "#Python",
-        "#TelegramBot",
-        "#PlantUML",
-        "#Graphviz",
-        "#Automation",
       ],
-      link: "https://t.me/umlstudiobot",
-      linkLabel: "Try UML Studio",
       gallery: [
-        { src: "/images/projects/uml.png", alt: "UML Studio brand preview" },
+        {
+          src: "/images/projects/4.png",
+          alt: "SLFWS Interface and Risk Forecast",
+        },
       ],
     },
     {
@@ -242,7 +242,6 @@ export default {
           src: "/images/projects/9681875b-be29-4ff0-862b-e6735f94761e.jpeg",
           alt: "BoardingBook Roommate Finder UI",
         },
-       
       ],
     },
   ],
