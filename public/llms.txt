@@ -1,0 +1,24 @@
+# Hasiru Chamika
+
+> Software engineer and SLIIT undergraduate based in Weligama, Sri Lanka. Builds full-stack web apps, Flutter and React Native mobile apps, agentic AI pipelines and ESP32-based IoT products.
+
+Contact: hasiruchamika2004@gmail.com · https://github.com/IT24102850 · https://www.linkedin.com/in/hasiru-chamika-ab0047228
+
+## Pages
+
+- [Home](https://hasiruchamika.com/): Summary, selected work and capabilities
+- [Projects](https://hasiruchamika.com/projects): All case studies, filterable by category
+- [About](https://hasiruchamika.com/about): Background, timeline and life outside work
+- [Experience](https://hasiruchamika.com/experience): Roles, education and awards
+- [Skills](https://hasiruchamika.com/skills): Technologies mapped to the projects that used them
+- [Contact](https://hasiruchamika.com/contact): Email, WhatsApp and social links
+
+## Selected projects
+
+- [Unify](https://hasiruchamika.com/projects/unify): Multi-tenant SME operations platform with a four-agent booking pipeline. ASP.NET Core, React, Flutter, FastAPI, PostgreSQL
+- [FloodWatch LK](https://hasiruchamika.com/projects/floodwatch-lk): Live flood and landslide risk for all 25 districts of Sri Lanka. Next.js, TypeScript, Open-Meteo
+- [Plus Teacher App](https://hasiruchamika.com/projects/plus-teacher-app): Timetable, attendance and fee tracking PWA for tuition teachers. Supabase, PostgreSQL
+- [SLFWS](https://hasiruchamika.com/projects/slfws): Machine learning early warning system for floods and landslides. Python, XGBoost, Streamlit
+- [BoardingBook](https://hasiruchamika.com/projects/boardingbook): Roommate matching for university students on web and mobile. React, Node.js, MongoDB, Expo
+- [BattleBot Control Stack](https://hasiruchamika.com/projects/battlebot): ESP32 combat robot, 1st place at EMBED X Robotics Workshop 2025
+- [Raja AI Travel Guide](https://hasiruchamika.com/projects/raja-ai-travel-guide): 3D elephant avatar that answers Sri Lanka travel questions. Three.js, Groq

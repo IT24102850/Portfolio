@@ -1,155 +1,120 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { nav, site } from '../data/site';
+import { CloseIcon, MenuIcon, SearchIcon } from './icons';
+import ThemeToggle from './theme-toggle';
 
-const navigation = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Experience", href: "/experience" },
-  { label: "Skills", href: "/skills" },
-  { label: "Projects", href: "/projects" },
-  { label: "Contact", href: "/contact" },
-];
+const isActive = (pathname: string, href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
 
 export default function SiteHeader() {
   const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  const closeMenu = () => setIsMenuOpen(false);
-
+  // Close the mobile sheet on navigation and lock scroll while it is open.
+  useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
-    closeMenu();
-  }, [pathname]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 8);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const { body } = document;
-    const previous = body.style.overflow;
-
-    if (isMenuOpen) {
-      body.style.overflow = "hidden";
-    } else {
-      body.style.overflow = "";
-    }
-
+    document.body.style.overflow = open ? 'hidden' : '';
     return () => {
-      body.style.overflow = previous;
+      document.body.style.overflow = '';
     };
-  }, [isMenuOpen]);
+  }, [open]);
+
+  const openPalette = () => window.dispatchEvent(new Event('palette:open'));
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        isScrolled ? "border-b border-white/10 bg-black/70 backdrop-blur-xl shadow-[0_25px_80px_rgba(2,4,12,0.65)]" : "bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-lg font-semibold tracking-wide text-white">
-          Hasiru Chamika
-        </Link>
-        <nav className="hidden items-center gap-6 text-sm font-medium text-zinc-400 md:flex">
-          {navigation.map(({ href, label }) => {
-            const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={`relative transition-colors duration-200 hover:text-white ${
-                  isActive ? "text-white" : ""
-                }`}
-              >
-                {label}
-                {isActive ? (
-                  <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-gradient-to-r from-cyan-400 via-indigo-400 to-fuchsia-500" />
-                ) : null}
-              </Link>
-            );
-          })}
-        </nav>
-        <a
-          href="mailto:hasiruchamika2004@gmail.com"
-          className="cta-primary hidden px-4 py-2 text-xs uppercase tracking-[0.2em] md:inline-flex"
-        >
-          Let&apos;s Talk
-        </a>
-        <button
-          type="button"
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.08] text-white transition md:hidden"
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-navigation"
-        >
-          <span className="sr-only">Toggle navigation</span>
-          <span className="flex flex-col items-center justify-center gap-1.5">
-            <span
-              className={`block h-0.5 w-5 rounded-full bg-current transition-transform duration-200 ${
-                isMenuOpen ? "translate-y-1.5 rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-5 rounded-full bg-current transition-opacity duration-200 ${
-                isMenuOpen ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-5 rounded-full bg-current transition-transform duration-200 ${
-                isMenuOpen ? "-translate-y-1.5 -rotate-45" : ""
-              }`}
-            />
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-5">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-2 rounded-full border border-line bg-bg/70 pr-2 pl-5 backdrop-blur-xl backdrop-saturate-150">
+        <Link href="/" className="flex items-center gap-2.5 font-medium tracking-tight" aria-label={`${site.name}, home`}>
+          <span className="relative grid h-2.5 w-2.5 place-items-center">
+            <span className="animate-pulse-dot h-2 w-2 rounded-full bg-accent" />
           </span>
-        </button>
-      </div>
-      <div
-        className={`fixed inset-0 z-40 bg-black/70 backdrop-blur-sm transition-opacity duration-200 md:hidden ${
-          isMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
-        onClick={closeMenu}
-        aria-hidden="true"
-      />
-      <nav
-        id="mobile-navigation"
-        className={`fixed left-4 right-4 top-20 z-50 origin-top rounded-3xl border border-white/10 bg-black/85 p-6 text-sm text-zinc-200 shadow-[0_35px_90px_rgba(2,6,16,0.65)] backdrop-blur-xl transition-all duration-200 md:hidden ${
-          isMenuOpen ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
-        }`}
-      >
-        <div className="flex flex-col gap-4">
-          {navigation.map(({ href, label }) => {
-            const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
-            return (
-              <Link
-                key={href}
-                href={href}
-                onClick={closeMenu}
-                className={`flex items-center justify-between rounded-2xl border border-white/5 px-4 py-3 transition-colors duration-150 ${
-                  isActive ? "bg-white/[0.08] text-white" : "bg-white/[0.03] hover:bg-white/[0.06]"
-                }`}
-              >
-                <span>{label}</span>
-                {isActive ? <span className="h-2 w-2 rounded-full bg-cyan-400" /> : null}
-              </Link>
-            );
-          })}
+          <span>
+            {site.shortName}
+            <span className="text-faint"> Chamika</span>
+          </span>
+        </Link>
+
+        <nav aria-label="Primary" className="hidden md:block">
+          <ul className="flex items-center gap-1">
+            {nav.slice(1).map((item) => {
+              const active = isActive(pathname, item.href);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={active ? 'page' : undefined}
+                    className={`rounded-full px-3.5 py-2 text-sm transition-colors ${
+                      active ? 'bg-surface-2 text-fg' : 'text-muted hover:text-fg'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={openPalette}
+            aria-label="Open command menu"
+            className="flex h-9 items-center gap-2 rounded-full px-2.5 text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+          >
+            <SearchIcon className="h-[18px] w-[18px]" />
+            <kbd className="hidden font-mono text-[0.7rem] text-faint lg:inline">Ctrl K</kbd>
+          </button>
+          <ThemeToggle />
+          <a href={`mailto:${site.email}`} className="btn btn-primary ml-1 hidden !py-2.5 sm:inline-flex">
+            Let&apos;s talk
+          </a>
+          <button
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            className="grid h-9 w-9 place-items-center rounded-full text-fg md:hidden"
+          >
+            {open ? <CloseIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+          </button>
         </div>
-        <a
-          href="mailto:hasiruchamika2004@gmail.com"
-          className="cta-primary mt-6 flex w-full justify-center px-4 py-3 text-xs uppercase tracking-[0.2em]"
-        >
-          Let&apos;s Talk
+      </div>
+
+      <div
+        id="mobile-nav"
+        hidden={!open}
+        className="mx-auto mt-2 max-w-5xl rounded-3xl border border-line bg-bg/95 p-3 backdrop-blur-xl md:hidden"
+      >
+        <nav aria-label="Mobile">
+          <ul>
+            {nav.map((item) => {
+              const active = isActive(pathname, item.href);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={active ? 'page' : undefined}
+                    className={`flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg ${
+                      active ? 'bg-surface-2 text-fg' : 'text-muted'
+                    }`}
+                  >
+                    {item.label}
+                    {active ? <span className="h-1.5 w-1.5 rounded-full bg-accent" /> : null}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+        <a href={`mailto:${site.email}`} className="btn btn-primary mt-2 w-full">
+          Let&apos;s talk
         </a>
-      </nav>
+      </div>
     </header>
   );
 }

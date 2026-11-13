@@ -1,219 +1,242 @@
-import Image from "next/image";
-import Link from "next/link";
-import SiteFooter from "../components/site-footer";
-import SiteHeader from "../components/site-header";
-import content from "../data/content";
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight, ArrowUpRight, PinIcon, TrophyIcon } from '../components/icons';
+import LocalTime from '../components/local-time';
+import ProjectCard from '../components/project-card';
+import { featuredProjects, projects } from '../data/projects';
+import { site } from '../data/site';
 
-const profileImagePath = "/images/my.jpg";
+const marquee = [
+  'TypeScript',
+  'React',
+  'Next.js',
+  'ASP.NET Core',
+  'Flutter',
+  'Node.js',
+  'PostgreSQL',
+  'Python',
+  'FastAPI',
+  'Agent pipelines',
+  'ESP32',
+  'Supabase',
+  'Docker',
+  'Tailwind CSS',
+];
 
-const focusAreas = ["UX Strategy", "Design Systems", "Product Thinking", "IoT Interfaces"];
-
-const quickStats = [
-  { label: "Base", value: content.location },
-  { label: "Disciplines", value: "Product design · Full-stack · IoT" },
-  { label: "Availability", value: "Open to collaborations in 2025" },
+const capabilities = [
+  {
+    index: '01',
+    title: 'Full-stack web',
+    body: 'Typed APIs and the interfaces on top of them. ASP.NET Core or Node on the server, React and Next.js in the browser, PostgreSQL underneath.',
+  },
+  {
+    index: '02',
+    title: 'Mobile',
+    body: 'Flutter with Riverpod and React Native with Expo, sharing one backend and one set of workflows with the web client.',
+  },
+  {
+    index: '03',
+    title: 'Agentic AI and ML',
+    body: 'Multi-agent pipelines with deterministic safety gates and human approval, plus classical ML for risk forecasting.',
+  },
+  {
+    index: '04',
+    title: 'IoT and embedded',
+    body: 'ESP32 and Arduino firmware, sensor telemetry and the dashboards that make it readable. Competition-tested.',
+  },
 ];
 
 export default function Home() {
-  const featuredProjects = content.projects.slice(0, 3);
+  const [lead, ...rest] = featuredProjects;
+  const liveCount = projects.filter((project) => project.live).length;
+  const years = new Date().getFullYear() - site.startedYear;
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="relative flex-1 overflow-hidden pt-28 sm:pt-32">
-        <div className="pointer-events-none absolute -left-40 top-10 hidden h-72 w-72 rounded-[24rem] glow-ring opacity-70 md:block" />
-        <div className="pointer-events-none absolute -right-56 bottom-0 hidden h-[26rem] w-[26rem] rounded-[26rem] glow-ring opacity-60 md:block" />
-
-        <section
-          id="home"
-          className="relative mx-auto flex max-w-6xl flex-col gap-12 px-6 pb-20 sm:gap-16 sm:pb-24 lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center"
-        >
-          <div className="relative flex flex-col gap-10">
-            <div className="relative flex flex-col gap-10 lg:flex-row lg:items-center">
-              <div className="relative mx-auto h-64 w-56 overflow-hidden rounded-[3rem] border border-white/10 bg-white/[0.04] shadow-[0_40px_90px_rgba(3,7,18,0.7)] lg:hidden">
-                <Image src={profileImagePath} alt="Portrait" fill className="object-cover" priority />
-              </div>
-
-              <div className="relative z-10 max-w-xl space-y-6">
-                <div className="inline-flex items-center gap-4 rounded-full border border-white/10 bg-white/[0.04] px-5 py-2 text-xs uppercase tracking-[0.3em] text-zinc-300">
-                  <span>UI/UX · Product Designer</span>
-                  <span className="h-1 w-1 rounded-full bg-cyan-400" />
-                  <span>Developer</span>
-                </div>
-                <h1 className="text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">
-                  Hello, I&apos;m Hasiru
-                </h1>
-                <p className="muted text-lg leading-relaxed">
-                  I&apos;m Hasiru Chamika &mdash; an undergraduate student at SLIIT. I build web &amp; mobile apps and work on embedded
-                  systems and IoT. I have hands-on experience with Python, JavaScript, React, Node.js, Android, Flutter and
-                  ESP32-based projects. Currently exploring data science and machine learning.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <Link href="/projects" className="cta-primary px-7 py-3 text-sm">
-                    View my work
-                  </Link>
-                  <Link href="/contact" className="cta-secondary px-7 py-3 text-sm text-zinc-200 hover:bg-white/10">
-                    Let&apos;s collaborate
-                  </Link>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  {focusAreas.map((area) => (
-                    <span key={area} className="tag-pill px-4 py-2 text-zinc-100/90">
-                      {area}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="relative hidden h-[480px] w-64 shrink-0 overflow-hidden rounded-[3.5rem] border border-white/10 bg-white/[0.04] shadow-[0_60px_120px_rgba(3,7,18,0.85)] lg:block">
-                <Image src={profileImagePath} alt="Portrait" fill className="object-cover" priority />
-              </div>
-            </div>
-          </div>
-
-          <div className="relative mx-auto w-full max-w-md sm:max-w-sm">
-            <div className="pointer-events-none absolute inset-0 -translate-x-6 translate-y-6 rounded-[3.5rem] bg-gradient-to-br from-cyan-500/30 via-indigo-500/25 to-fuchsia-500/25 blur-2xl sm:-translate-x-8 sm:translate-y-8 sm:rounded-[4rem]" />
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/60 p-6 shadow-[0_45px_110px_rgba(2,6,14,0.8)] sm:rounded-[3rem] sm:p-7">
-              <div className="flex items-center justify-between text-xs uppercase tracking-[0.35em] text-zinc-500">
-                <span>Builder&apos;s Log</span>
-                <span className="rounded-full bg-white/5 px-3 py-1 text-[0.65rem] font-semibold text-zinc-300">2025 roadmap</span>
-              </div>
-
-              <div className="mt-6 space-y-4 text-sm text-zinc-300">
-                <div className="grid gap-3">
-                  <div className="space-y-1">
-                    <span className="text-[0.65rem] uppercase tracking-[0.3em] text-zinc-500">Current base</span>
-                    <div className="surface-subtle flex items-center justify-between px-4 py-3 text-sm">
-                      <span>{content.location}</span>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <span className="text-[0.65rem] uppercase tracking-[0.3em] text-zinc-500">Focus</span>
-                      <div className="surface-subtle px-4 py-3 text-sm">IoT &amp; product experiments</div>
-                    </div>
-                    <div className="space-y-1">
-                      <span className="text-[0.65rem] uppercase tracking-[0.3em] text-zinc-500">Next launch</span>
-                      <div className="surface-subtle px-4 py-3 text-sm">Dec 2025 · IoT MVP</div>
-                    </div>
-                  </div>
-                  <div className="space-y-1">
-                    <span className="text-[0.65rem] uppercase tracking-[0.3em] text-zinc-500">Collaboration</span>
-                    <div className="surface-subtle flex items-center justify-between px-4 py-3 text-sm">
-                      <span>Open to product &amp; research partners</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-3">
-                  {featuredProjects.slice(0, 2).map((project, index) => (
-                    <div
-                      key={project.title}
-                      className="surface-subtle flex items-center gap-4 p-3"
-                      style={{
-                        background:
-                          index % 2 === 0
-                            ? "linear-gradient(135deg, rgba(99,102,241,0.14), rgba(14,165,233,0.08))"
-                            : "linear-gradient(135deg, rgba(8,145,178,0.12), rgba(139,92,246,0.08))",
-                      }}
-                    >
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/10 text-sm font-semibold text-zinc-200">
-                        {project.progress}%
-                      </div>
-                      <div className="space-y-1 text-xs">
-                        <p className="text-sm font-medium text-white">{project.title}</p>
-                        <p className="text-zinc-500">{project.tech.slice(0, 3).join(" · ")}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="about" className="scroll-mt-24 border-t border-white/10 bg-white/[0.035]">
-          <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:py-24 lg:grid-cols-[1.5fr_1fr]">
-            <div className="space-y-6">
-              <p className="text-sm uppercase tracking-[0.2em] text-zinc-400">About</p>
-              <h2 className="text-3xl font-semibold text-white sm:text-4xl">Multidisciplinary designer &amp; engineer.</h2>
-              <p className="muted text-base leading-relaxed">
-                I pair user-centered design with full-stack engineering and embedded systems experience to translate
-                complex ideas into elegant products. From early discovery and UX research through interface design,
-                prototyping, and implementation, I steward every step with a keen eye for polish.
-              </p>
-            </div>
-            <div className="space-y-4">
-              {quickStats.map((item) => (
-                <div key={item.label} className="surface-card px-6 py-5">
-                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">{item.label}</p>
-                  <p className="mt-2 text-sm text-zinc-200">{item.value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="work" className="scroll-mt-24">
-          <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-            <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="text-sm uppercase tracking-[0.2em] text-zinc-400">Selected Work</p>
-                <h2 className="mt-2 text-3xl font-semibold text-white sm:text-4xl">Featured case studies</h2>
-              </div>
-              <Link href="/projects" className="text-sm font-semibold text-cyan-300 hover:text-cyan-200">
-                View full archive →
-              </Link>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {featuredProjects.map((project) => (
-                <article
-                  key={project.title}
-                  className="group flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.04] p-6 transition-transform duration-300 hover:-translate-y-2 hover:border-cyan-400/40 hover:bg-white/[0.07]"
-                >
-                  <div className="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-zinc-400">
-                    <span>{project.progress}% complete</span>
-                    <span className="h-1 w-1 rounded-full bg-white/20" />
-                    <span>Case Study</span>
-                  </div>
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-                    <p className="muted text-sm leading-relaxed">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tag) => (
-                        <span key={tag} className="tag-pill bg-white/8 text-cyan-200">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" className="scroll-mt-24 border-t border-white/10 bg-white/[0.035]">
-          <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-20 text-center sm:py-24">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-400">Collaborate</p>
-            <h2 className="text-3xl font-semibold text-white sm:text-4xl">Building something exciting?</h2>
-            <p className="muted mx-auto max-w-2xl text-base">
-              I partner with founders, agencies, and product teams to ship premium digital experiences—from early
-              prototypes to production-ready launches.
+    <>
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="bg-grid pointer-events-none absolute inset-0" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute -top-40 left-1/2 h-[34rem] w-[60rem] -translate-x-1/2 rounded-full bg-accent-soft blur-[120px]"
+          aria-hidden="true"
+        />
+        <div className="container-page relative grid gap-12 pt-36 pb-20 sm:pt-44 lg:grid-cols-[1fr_22rem] lg:items-end lg:gap-16 lg:pb-28">
+          <div>
+            <p className="animate-rise inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/60 py-1.5 pr-4 pl-3 text-sm text-muted backdrop-blur">
+              <span className="animate-pulse-dot h-2 w-2 rounded-full bg-accent" />
+              Open to internships and collaborations
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link href="mailto:hasiruchamika2004@gmail.com" className="cta-primary px-6 py-3 text-sm">
-                Schedule a conversation
+            <h1 className="animate-rise mt-7 text-[clamp(2.6rem,7.2vw,5.75rem)] leading-[0.98] font-medium [animation-delay:80ms]">
+              <span className="block text-[0.34em] leading-normal font-normal tracking-normal text-muted">
+                {site.name}, {site.role.toLowerCase()}
+              </span>
+              Building software{' '}
+              <span className="font-serif font-normal text-accent italic">from firmware</span> to cloud.
+            </h1>
+            <p className="animate-rise mt-7 max-w-xl text-lg leading-relaxed text-muted [animation-delay:160ms]">
+              {site.intro}
+            </p>
+            <div className="animate-rise mt-9 flex flex-wrap gap-3 [animation-delay:240ms]">
+              <Link href="/projects" className="btn btn-primary">
+                View my work
+                <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/contact" className="cta-secondary px-6 py-3 text-sm text-zinc-200 hover:bg-white/10">
-                Explore contact options
+              <Link href="/contact" className="btn btn-ghost">
+                Get in touch
               </Link>
             </div>
           </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
+
+          <figure className="animate-rise card overflow-hidden [animation-delay:200ms]">
+            <div className="relative aspect-[4/5]">
+              <Image
+                src={site.portrait}
+                alt={`Portrait of ${site.name}`}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 352px"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="flex items-center justify-between gap-3 px-5 py-4 font-mono text-xs text-muted">
+              <span className="inline-flex items-center gap-1.5">
+                <PinIcon className="h-3.5 w-3.5" />
+                {site.locality}, LK
+              </span>
+              <LocalTime />
+            </figcaption>
+          </figure>
+        </div>
+
+        {/* Stack marquee */}
+        <div className="mask-fade-x relative border-y border-line py-5" aria-hidden="true">
+          <div className="animate-marquee flex w-max gap-10 font-mono text-sm text-faint">
+            {[...marquee, ...marquee].map((item, i) => (
+              <span key={i} className="flex items-center gap-10">
+                {item}
+                <span className="h-1 w-1 rounded-full bg-accent" />
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Selected work */}
+      <section className="container-page pt-24 sm:pt-32" aria-labelledby="work-heading">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="eyebrow">Selected work</p>
+            <h2 id="work-heading" className="mt-4 text-4xl font-medium sm:text-5xl">
+              Things I&apos;ve <span className="font-serif font-normal italic">shipped.</span>
+            </h2>
+          </div>
+          <Link href="/projects" className="link-underline inline-flex items-center gap-1.5 text-sm text-muted hover:text-fg">
+            All {projects.length} projects
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          <div className="reveal md:col-span-2">
+            <ProjectCard project={lead} size="lg" priority />
+          </div>
+          {rest.slice(0, 4).map((project) => (
+            <div key={project.slug} className="reveal">
+              <ProjectCard project={project} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Bento */}
+      <section className="container-page pt-24 sm:pt-32" aria-labelledby="about-heading">
+        <p className="eyebrow">At a glance</p>
+        <h2 id="about-heading" className="mt-4 max-w-3xl text-4xl font-medium sm:text-5xl">
+          Engineer first, with a <span className="font-serif font-normal italic">maker&apos;s</span> habit of finishing
+          things.
+        </h2>
+
+        <div className="mt-12 grid gap-4 md:grid-cols-6">
+          <div className="card card-glow reveal p-7 md:col-span-4 sm:p-9">
+            <p className="eyebrow">About</p>
+            <p className="mt-5 text-xl leading-relaxed sm:text-2xl">
+              I started with an Arduino and a bedroom light switch in {site.startedYear}. Today I build multi-tenant
+              platforms, mobile apps and agent pipelines, and I still reach for a soldering iron when a project needs
+              one.
+            </p>
+            <Link href="/about" className="link-underline mt-8 inline-flex items-center gap-1.5 text-sm text-muted hover:text-fg">
+              More about me
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <div className="card card-glow reveal flex flex-col justify-between p-7 md:col-span-2">
+            <TrophyIcon className="h-7 w-7 text-accent" />
+            <div className="mt-10">
+              <p className="text-2xl font-medium">1st place</p>
+              <p className="mt-2 text-muted">BattleBot competition, EMBED X Robotics Workshop 2025 at SLIIT.</p>
+            </div>
+          </div>
+
+          {[
+            { value: `${projects.length}`, label: 'Projects documented here' },
+            { value: `${liveCount}`, label: 'Live deployments you can open' },
+            { value: `${years}+`, label: 'Years building things' },
+          ].map((stat) => (
+            <div key={stat.label} className="card reveal p-7 md:col-span-2">
+              <p className="font-serif text-6xl leading-none">{stat.value}</p>
+              <p className="mt-4 text-sm text-muted">{stat.label}</p>
+            </div>
+          ))}
+
+          <div className="card card-glow reveal p-7 md:col-span-3">
+            <p className="eyebrow">Currently</p>
+            <p className="mt-5 text-xl">{site.degree}</p>
+            <p className="mt-2 text-muted">{site.university}</p>
+          </div>
+          <div className="card card-glow reveal p-7 md:col-span-3">
+            <p className="eyebrow">Latest</p>
+            <p className="mt-5 text-xl">
+              Unify: a four-agent booking pipeline with a deterministic safety gate, running on web and Flutter.
+            </p>
+            <Link
+              href="/projects/unify"
+              className="link-underline mt-4 inline-flex items-center gap-1.5 text-sm text-muted hover:text-fg"
+            >
+              Read the case study
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Capabilities */}
+      <section className="container-page pt-24 sm:pt-32" aria-labelledby="capabilities-heading">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="eyebrow">Capabilities</p>
+            <h2 id="capabilities-heading" className="mt-4 text-4xl font-medium sm:text-5xl">
+              Where I&apos;m <span className="font-serif font-normal italic">useful.</span>
+            </h2>
+          </div>
+          <Link href="/skills" className="link-underline inline-flex items-center gap-1.5 text-sm text-muted hover:text-fg">
+            Full skill map
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+        <ol className="mt-12 border-t border-line">
+          {capabilities.map((item) => (
+            <li
+              key={item.index}
+              className="reveal group grid gap-3 border-b border-line py-8 transition-colors hover:bg-surface sm:grid-cols-[5rem_1fr_1.4fr] sm:gap-8 sm:px-4"
+            >
+              <span className="font-mono text-sm text-faint">{item.index}</span>
+              <h3 className="text-2xl font-medium transition-colors group-hover:text-accent">{item.title}</h3>
+              <p className="leading-relaxed text-muted">{item.body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </>
   );
 }

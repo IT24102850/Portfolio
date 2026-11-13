@@ -1,135 +1,95 @@
-import SiteFooter from '../../components/site-footer';
-import SiteHeader from '../../components/site-header';
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { ArrowUpRight, TrophyIcon } from '../../components/icons';
+import PageHeader from '../../components/page-header';
+import { experiences, site } from '../../data/site';
 
-type Experience = {
-  title: string;
-  company: string;
-  period: string;
-  focus: string;
-  impact: string;
-  achievements: string[];
-  tools: string[];
+const description =
+  'Experience of Hasiru Chamika: full-stack product engineering, undergraduate research and mentoring at SLIIT, and freelance development since 2021.';
+
+export const metadata: Metadata = {
+  title: 'Experience',
+  description,
+  alternates: { canonical: '/experience' },
+  openGraph: { title: `Experience · ${site.name}`, description, url: '/experience' },
 };
-
-const experiences: Experience[] = [
-  {
-    title: 'Full-Stack Product Engineer',
-    company: 'Independent Studio',
-    period: '2023 – Present',
-    focus: 'Design-to-deployment ownership for premium digital products.',
-    impact:
-      'Leads discovery, UX, and engineering delivery for client and self-directed launches across commerce, productivity, and hardware-integrated experiences.',
-    achievements: [
-      'Shipped MelodyMart, a Java/Tomcat commerce stack with structured MVC pipelines and responsive merchandising UI.',
-      'Built IoT Water Monitoring dashboards that integrate ESP32 telemetry with Firebase analytics for real-world households.',
-      'Created a reusable design system and motion guidelines adopted across three production web builds.',
-    ],
-    tools: ['Next.js', 'React', 'Node.js', 'Tailwind', 'Figma'],
-  },
-  {
-    title: 'Undergraduate Research & Mentoring',
-    company: 'SLIIT Faculty of Computing',
-    period: '2022 – Present',
-    focus: 'Applied research in human-computer interaction, robotics, and IoT ecosystems.',
-    impact:
-      'Facilitates peer-led workshops while experimenting with intelligent interfaces that bridge software and embedded platforms.',
-    achievements: [
-      'Captured 1st place at EMBED X Robotics Workshop 2025 with a BattleBot control stack and telemetry cockpit.',
-      'Delivered maker-lab sessions that introduced over 80 students to ESP32 firmware, realtime dashboards, and rapid prototyping.',
-      'Documented robotics tooling and shared open resources used in recurring campus labs.',
-    ],
-    tools: ['ESP32', 'C++', 'React', 'Firebase', 'Fusion 360'],
-  },
-  {
-    title: 'Freelance Developer & Consultant',
-    company: 'Remote Clients',
-    period: '2021 – Present',
-    focus: 'Cross-platform software, automation, and data visualization engagements.',
-    impact:
-      'Delivers lightweight tooling and dashboards that improve operational visibility for startups and community teams.',
-    achievements: [
-      'Rolled out Android and Flutter prototypes for campus services, spanning transit schedules, events, and notifications.',
-      'Built multilingual NLP assistants using Python pipelines tailored for Sinhala and English workflows.',
-      'Authored deployment playbooks covering CI/CD, observability, and long-term maintenance handoff.',
-    ],
-    tools: ['Flutter', 'Android', 'Python', 'FastAPI', 'MongoDB'],
-  },
-];
 
 export default function ExperiencePage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="relative flex-1 pt-32">
-        <div className="pointer-events-none absolute -left-48 top-20 hidden h-72 w-72 rounded-[24rem] glow-ring opacity-60 md:block" />
-        <div className="pointer-events-none absolute -right-48 bottom-24 hidden h-72 w-72 rounded-[24rem] glow-ring opacity-50 md:block" />
-        <section className="relative mx-auto max-w-6xl px-6 pb-24">
-          <header className="mb-12 space-y-6">
-            <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-xs uppercase tracking-[0.28em] text-cyan-100">
-              Experience
-            </span>
-            <div className="space-y-4">
-              <h1 className="text-3xl font-semibold text-white sm:text-4xl">
-                Momentum built through research, craft, and delivery.
-              </h1>
-              <p className="muted max-w-3xl text-base">
-                A timeline of leadership, experiments, and consulting work that blends UX vision with embedded systems and production-grade engineering.
-              </p>
-            </div>
-          </header>
+    <>
+      <PageHeader
+        eyebrow="Experience"
+        title={
+          <>
+            Momentum built through research, craft and{' '}
+            <span className="font-serif font-normal text-accent italic">delivery.</span>
+          </>
+        }
+      >
+        <p>
+          A timeline of engineering, experiments and consulting work that connects product thinking with embedded
+          systems and production code.
+        </p>
+      </PageHeader>
 
-          <div className="relative pl-6">
-            <div className="absolute left-2 top-0 bottom-0 hidden w-px bg-gradient-to-b from-cyan-400/40 via-white/10 to-transparent md:block" />
-            <div className="flex flex-col gap-8">
-              {experiences.map((experience) => (
-                <article
-                  key={`${experience.title}-${experience.company}`}
-                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_30px_60px_-45px_rgba(15,23,42,0.8)] backdrop-blur-lg transition-transform duration-300 hover:-translate-y-2 hover:border-cyan-400/50 hover:shadow-[0_40px_80px_-50px_rgba(34,211,238,0.75)]"
-                >
-                  <div className="pointer-events-none absolute -left-[19px] top-8 hidden h-4 w-4 rounded-full border-2 border-cyan-300/70 bg-[#030712] md:block" />
-                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-transparent to-indigo-500/15" />
-                  </div>
-                  <div className="relative z-10 space-y-4">
-                    <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                      <div>
-                        <h2 className="text-2xl font-semibold text-white">{experience.title}</h2>
-                        <p className="text-sm uppercase tracking-[0.2em] text-cyan-200/90">{experience.company}</p>
-                      </div>
-                      <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.28em] text-zinc-300">
-                        {experience.period}
-                      </span>
-                    </div>
-                    <p className="text-sm font-medium text-cyan-100/90">{experience.focus}</p>
-                    <p className="muted text-sm leading-relaxed">{experience.impact}</p>
-                    <div className="space-y-3">
-                      <p className="text-xs uppercase tracking-[0.28em] text-zinc-400">Highlights</p>
-                      <ul className="space-y-2 text-sm text-zinc-200">
-                        {experience.achievements.map((achievement) => (
-                          <li
-                            key={achievement}
-                            className="rounded-2xl border border-white/5 bg-white/5 px-3 py-2 text-cyan-100/90"
-                          >
-                            {achievement}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="flex flex-wrap gap-2 pt-1">
-                      {experience.tools.map((tool) => (
-                        <span key={tool} className="tag-pill bg-white/8 text-cyan-200/90">
-                          {tool}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
+      <section className="container-page" aria-label="Roles">
+        <ol className="border-t border-line">
+          {experiences.map((experience) => (
+            <li
+              key={experience.title}
+              className="reveal grid gap-6 border-b border-line py-12 lg:grid-cols-[16rem_1fr] lg:gap-16"
+            >
+              <div>
+                <p className="font-mono text-sm text-accent">{experience.period}</p>
+                <p className="mt-2 text-muted">{experience.company}</p>
+              </div>
+              <div className="max-w-3xl">
+                <h2 className="text-3xl font-medium sm:text-4xl">{experience.title}</h2>
+                <p className="mt-4 text-lg text-fg">{experience.focus}</p>
+                <p className="mt-3 leading-relaxed text-muted">{experience.impact}</p>
+                <ul className="mt-6 space-y-3">
+                  {experience.achievements.map((achievement) => (
+                    <li key={achievement} className="flex gap-4 leading-relaxed">
+                      <span className="mt-[0.7em] h-1 w-1 shrink-0 rounded-full bg-accent" />
+                      {achievement}
+                    </li>
+                  ))}
+                </ul>
+                <ul className="mt-6 flex flex-wrap gap-2">
+                  {experience.tools.map((tool) => (
+                    <li key={tool} className="chip">
+                      {tool}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="container-page grid gap-4 pt-16 md:grid-cols-2" aria-label="Education and awards">
+        <div className="card card-glow reveal p-7 sm:p-9">
+          <p className="eyebrow">Education</p>
+          <h2 className="mt-5 text-2xl font-medium">{site.degree}</h2>
+          <p className="mt-2 text-muted">{site.university}</p>
+        </div>
+        <div className="card card-glow reveal p-7 sm:p-9">
+          <p className="eyebrow">Award</p>
+          <h2 className="mt-5 flex items-center gap-3 text-2xl font-medium">
+            <TrophyIcon className="h-6 w-6 text-accent" />
+            1st place, BattleBot competition
+          </h2>
+          <p className="mt-2 text-muted">EMBED X Robotics Workshop 2025, IEEE RAS Student Branch Chapter of SLIIT.</p>
+          <Link
+            href="/projects/battlebot"
+            className="link-underline mt-5 inline-flex items-center gap-1.5 text-sm text-muted hover:text-fg"
+          >
+            See the build
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
+    </>
   );
 }

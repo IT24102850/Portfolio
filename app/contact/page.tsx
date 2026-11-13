@@ -1,193 +1,91 @@
-"use client";
+import type { Metadata } from 'next';
+import ContactForm from '../../components/contact-form';
+import { ArrowUpRight, MailIcon, PinIcon, socialIcons } from '../../components/icons';
+import JsonLd from '../../components/json-ld';
+import LocalTime from '../../components/local-time';
+import PageHeader from '../../components/page-header';
+import { site, socials } from '../../data/site';
 
-import { FormEvent, useState } from "react";
-import SiteFooter from "../../components/site-footer";
-import SiteHeader from "../../components/site-header";
-import content from "../../data/content";
-import { iconMap, IconKey } from "../../components/social-icons";
+const description =
+  'Contact Hasiru Chamika about internships, freelance projects or collaborations. Email, WhatsApp, LinkedIn and GitHub, with replies within 48 hours.';
 
-type ContactChannel = {
-  label: string;
-  value: string;
-  href?: string;
-  description: string;
-  icon?: IconKey;
+export const metadata: Metadata = {
+  title: 'Contact',
+  description,
+  alternates: { canonical: '/contact' },
+  openGraph: { title: `Contact · ${site.name}`, description, url: '/contact' },
 };
 
-const contactChannels: ContactChannel[] = [
-  {
-    label: "Email",
-    value: content.email,
-    href: `mailto:${content.email}`,
-    description: "Best for detailed project discussions and collaborations.",
-    icon: "email" as const,
-  },
-  {
-    label: "WhatsApp",
-    value: content.phone,
-    href: content.whatsapp,
-    description: "Quick check-ins and rapid coordination via WhatsApp.",
-    icon: "whatsapp",
-  },
-  {
-    label: "Location",
-    value: content.location,
-    href: undefined,
-    description: "Working remotely with teams across the globe.",
-    icon: "location" as const,
-  },
-  {
-    label: "LinkedIn",
-    value: "Connect on LinkedIn",
-    href: content.linkedin,
-    description: "Connect for professional updates and design insights.",
-    icon: "linkedin",
-  },
-  {
-    label: "Facebook",
-    value: "Follow on Facebook",
-    href: content.facebook,
-    description: "Project spotlights and community updates.",
-    icon: "facebook",
-  },
-  {
-    label: "Instagram",
-    value: "@chamika_2k04",
-    href: content.instagram,
-    description: "Behind-the-scenes snapshots and visual experiments.",
-    icon: "instagram",
-  },
-  {
-    label: "GitHub",
-    value: "@IT24102850",
-    href: content.github,
-    description: "Explore code experiments and open-source projects.",
-    icon: "github",
-  },
-];
-
 export default function ContactPage() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [status, setStatus] = useState<string | null>(null);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (isSubmitting) return;
-
-    setIsSubmitting(true);
-    setStatus("Sending your message...");
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setStatus("Message sent! I will reply soon.");
-      event.currentTarget.reset();
-
-      setTimeout(() => setStatus(null), 2500);
-    }, 900);
-  };
-
   return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="flex-1 pt-32">
-        <section className="mx-auto max-w-6xl px-6 pb-24">
-          <header className="mb-12 space-y-4 text-center">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-400">Contact</p>
-            <h1 className="text-3xl font-semibold text-white sm:text-4xl">
-              Let&apos;s create a premium experience together.
-            </h1>
-            <p className="muted mx-auto max-w-2xl text-base">
-              Share some context around your project or opportunity, and I&apos;ll respond with next steps within 48 hours.
+    <>
+      <PageHeader
+        eyebrow="Contact"
+        title={
+          <>
+            Tell me what you&apos;re <span className="font-serif font-normal text-accent italic">building.</span>
+          </>
+        }
+      >
+        <p>Share some context around your project or opportunity and I&apos;ll respond with next steps within 48 hours.</p>
+      </PageHeader>
+
+      <section className="container-page grid gap-6 lg:grid-cols-[1.15fr_1fr]" aria-label="Contact options">
+        <ContactForm />
+
+        <div className="flex flex-col gap-4">
+          <a href={`mailto:${site.email}`} className="card card-glow group p-6 sm:p-7">
+            <p className="eyebrow flex items-center gap-2">
+              <MailIcon className="h-3.5 w-3.5" /> Email
             </p>
-          </header>
+            <p className="mt-3 flex items-center justify-between gap-3 text-lg break-all sm:text-xl">
+              {site.email}
+              <ArrowUpRight className="h-5 w-5 shrink-0 text-faint transition-colors group-hover:text-accent" />
+            </p>
+          </a>
 
-          <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr]">
-            <aside className="space-y-4">
-              {contactChannels.map(({ label, value, href, description, icon }) => {
-                const Icon = icon ? iconMap[icon as IconKey] : null;
-                const isExternal = href?.startsWith("http");
-                return (
-                  <div key={label} className="surface-card p-6">
-                    <div className="flex items-center gap-3">
-                      {Icon ? (
-                        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black/70 text-white">
-                          <Icon className="h-4 w-4" />
-                        </span>
-                      ) : null}
-                      <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">{label}</p>
-                    </div>
-                    {href ? (
-                      <a
-                        href={href}
-                        className="mt-3 block text-lg font-semibold text-white hover:text-cyan-300"
-                        target={isExternal ? "_blank" : undefined}
-                        rel={isExternal ? "noopener noreferrer" : undefined}
-                      >
-                        {value}
-                      </a>
-                    ) : (
-                      <span className="mt-3 block text-lg font-semibold text-white">{value}</span>
-                    )}
-                    <p className="muted mt-3 text-sm">{description}</p>
-                  </div>
-                );
-              })}
-            </aside>
-
-            <section className="surface-card p-6">
-              <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Project brief</p>
-              <h2 className="mt-2 text-xl font-semibold text-white">Share a few details</h2>
-              <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <label className="space-y-2">
-                    <span className="text-xs uppercase tracking-[0.2em] text-zinc-400">Your Name</span>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-400/30"
-                      placeholder="Elena from Orbit Studio"
-                    />
-                  </label>
-                  <label className="space-y-2">
-                    <span className="text-xs uppercase tracking-[0.2em] text-zinc-400">Email</span>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-400/30"
-                      placeholder="hello@brand.com"
-                    />
-                  </label>
-                </div>
-
-                <label className="space-y-2">
-                  <span className="text-xs uppercase tracking-[0.2em] text-zinc-400">Project Overview</span>
-                  <textarea
-                    name="message"
-                    rows={6}
-                    required
-                    className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-400/30"
-                    placeholder="Share goals, timelines, and any links that help me understand the vision."
-                  />
-                </label>
-
-                <div className="flex flex-wrap items-center gap-4">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="cta-primary px-6 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-70"
-                  >
-                    {isSubmitting ? 'Sending…' : 'Send message'}
-                  </button>
-                  {status ? <span className="muted text-sm">{status}</span> : null}
-                </div>
-              </form>
-            </section>
+          <div className="card p-6 sm:p-7">
+            <p className="eyebrow flex items-center gap-2">
+              <PinIcon className="h-3.5 w-3.5" /> Location
+            </p>
+            <p className="mt-3 text-lg sm:text-xl">{site.location}</p>
+            <p className="mt-1 text-sm text-muted">
+              Working remotely with teams anywhere. Local time <LocalTime />
+            </p>
           </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
+
+          <ul className="card divide-y divide-line">
+            {socials.map((social) => {
+              const Icon = socialIcons[social.key];
+              return (
+                <li key={social.key}>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="me noopener noreferrer"
+                    className="group flex items-center gap-4 px-6 py-4 transition-colors hover:bg-surface-2 sm:px-7"
+                  >
+                    <Icon className="h-4 w-4 text-muted group-hover:text-accent" />
+                    <span className="flex-1">{social.label}</span>
+                    <span className="truncate font-mono text-xs text-faint">{social.handle}</span>
+                    <ArrowUpRight className="h-4 w-4 text-faint transition-colors group-hover:text-accent" />
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'ContactPage',
+          url: `${site.url}/contact`,
+          name: `Contact ${site.name}`,
+          mainEntity: { '@id': `${site.url}/#person` },
+        }}
+      />
+    </>
   );
 }
